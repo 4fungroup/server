@@ -2,7 +2,7 @@
  * MaNGOS is a full featured server for World of Warcraft, supporting
  * the following clients: 1.12.x, 2.4.3, 3.3.5a, 4.3.4a and 5.4.8
  *
- * Copyright (C) 2005-2019  MaNGOS project <https://getmangos.eu>
+ * Copyright (C) 2005-2020 MaNGOS <https://getmangos.eu>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1011,9 +1011,6 @@ void World::SetInitialWorldSettings()
     sLog.outString("Loading Script Names...");
     sScriptMgr.LoadScriptNames();
 
-    //sLog.outString("Loading WorldTemplate...");
-    //sObjectMgr.LoadWorldTemplate();
-
     sLog.outString("Loading InstanceTemplate...");
     sObjectMgr.LoadInstanceTemplate();
 
@@ -1564,7 +1561,9 @@ void World::showFooter()
 
     std::string sModules;
     for (std::set<std::string>::const_iterator it = modules_.begin(); it != modules_.end(); ++it)
+    {
         sModules = sModules + " \n" + *it;
+    }
 
     sLog.outString("\n"
         "_______________________________________________________\n"
@@ -2540,7 +2539,9 @@ void World::InvalidatePlayerDataToAllClient(ObjectGuid guid)
 void World::LoadBroadcastStrings()
 {
     if (!m_broadcastEnable)
-    return;
+    {
+        return;
+    }
 
     std::string queryStr = "SELECT `autobroadcast`.`id`, `autobroadcast`.`content`,`autobroadcast`.`ratio` FROM `autobroadcast`";
 
